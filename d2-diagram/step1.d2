@@ -1,0 +1,19 @@
+# Classes
+MySQLUserRepository: {
+  shape: class
+  +getById(id: number): string
+}
+
+UserService: {
+  shape: class
+  -userRepository: MySQLUserRepository
+  +constructor()
+  +getById(id: number): string
+}
+
+# Relationships
+UserService -> MySQLUserRepository: depends {
+  style: {
+    stroke: "#FF0000"
+  }
+}

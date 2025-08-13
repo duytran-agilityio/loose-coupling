@@ -1,0 +1,26 @@
+# Classes
+MySQLUserRepository: {
+  shape: class
+  +getById(id: number): string
+}
+
+UserRepositoryFactory: {
+  shape: class
+  +getUserRepository(): MySQLUserRepository <<static>>
+}
+
+UserService: {
+  shape: class
+  -userRepository: MySQLUserRepository
+  +constructor()
+  +getById(id: number): string
+}
+
+# Relationships
+UserService -> MySQLUserRepository: depends {
+  style: {
+    stroke: orange
+  }
+}
+UserService -> UserRepositoryFactory: uses
+UserRepositoryFactory -> MySQLUserRepository: creates
