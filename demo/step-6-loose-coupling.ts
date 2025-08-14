@@ -13,7 +13,6 @@ class MongoUserRepository implements UserRepository {
     return `User ${id} from MongoDB`;
   }
 }
-
 class UserService {
   private userRepository: UserRepository;
 
@@ -26,6 +25,7 @@ class UserService {
     return this.userRepository.getById(id);
   }
 }
+
 enum IoCType {
   "class",
   "function",
@@ -61,20 +61,20 @@ class SimpleIoCContainer {
 }
 
 // init container
-const constainer = new SimpleIoCContainer();
+const container = new SimpleIoCContainer();
 
 // register binding
-constainer.bind("UserRepository", {
+container.bind("UserRepository", {
   type: IoCType.class,
   instance: MongoUserRepository,
 });
-constainer.bind("UserService", {
+container.bind("UserService", {
   type: IoCType.function,
   instance: () => {
-    const userRepository = constainer.get<UserRepository>("UserRepository");
+    const userRepository = container.get<UserRepository>("UserRepository");
     return new UserService(userRepository);
   },
 });
 
-const userService = constainer.get<UserService>("UserService");
+const userService = container.get<UserService>("UserService");
 console.log(userService.getById(1));
