@@ -1,4 +1,1 @@
-import { UserService } from "./src/user.service";
-
-const userService = new UserService();
-console.log(userService.getById(1));
+console.log("Hello TS");

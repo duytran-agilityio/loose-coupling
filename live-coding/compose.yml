@@ -1,0 +1,17 @@
+version: "3"
+services:
+  redis-server:
+    image: redis:7.2.5
+    ports:
+      - 6379:6379
+    deploy:
+      resources:
+        limits:
+          # cache.t3.micro
+          cpus: "2"
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
